@@ -1,0 +1,9 @@
+ 1570  ls
+ 1571  cat *
+ 1572  ls
+ 1573  cat ex1.txt 
+ 1574  cat ex2.txt 
+ 1575  history | tail -n 7
+ 1576  history | tail -n 11
+ 1577  history | tail -n 9
+ 1578  history | tail -n 9 > ex2.txt
