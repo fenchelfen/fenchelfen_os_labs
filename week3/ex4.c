@@ -46,17 +46,15 @@ void quick_sort(int *array, int lo, int hi)
 {
 	while (lo < hi) {
 		int q = cormen_partition(array, lo, hi);
-		printf("q = %d\n", q);
 		quick_sort(array, lo, q-1);
-		print_arr(array, lo, hi);
-
 		lo = q + 1;
 	}
 }
 
 int main()
 {
-	int array[] = {5, 4, 3, 2, 1};
+	int array[] = {1, 1, 1, 1, 1};
+	//int array[] = {5, 4, 3, 2, 1};
 	//int array[] = {1, 2, 3, 4, 5};
 	//int array[] = {1};
 	//int array[] = {};
