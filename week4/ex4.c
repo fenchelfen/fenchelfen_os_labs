@@ -58,10 +58,10 @@ void exec(char **argv)
             break;
         case 0:
             execl("/bin/sh", "sh", "-c", command, (char *) 0);
-            _exit(127);
+            _exit(127); // the given command is not found
         default:
             while (waitpid(childPid, &status, 0) == -1) {
-                if (errno != EINTR)
+                if (errno != EINTR) // child is in progress; no error occured
                     break;
                 }
             break;
