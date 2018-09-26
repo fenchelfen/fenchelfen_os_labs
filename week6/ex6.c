@@ -35,13 +35,13 @@ int main()
 			err(EXIT_FAILURE, "Fork failure");
 		}
 		if (child_two == 0) {
-			for (;;) { printf("Child two:\tPlease, clean up! %d\n", getpid()); sleep(5); }
+			for (;;) { printf("Child two:\tPlease, clean up! %d\n", getpid()); sleep(1); }
 			/* should be killed, be cautious */
 		} else {
 			char pid_string[16];	
 			snprintf(pid_string, 16, "%d", child_two);
 			write(pipefd[1], pid_string, strlen(pid_string));
-			waitpid(child_one, NULL, 0);
+			waitpid(child_one, NULL, WUNTRACED);
 			close(pipefd[0]);
 			close(pipefd[1]);
 			puts("Parent:\t\tAll is freshly clean!");
