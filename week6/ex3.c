@@ -2,6 +2,7 @@
 #include <signal.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 /**
   * To quit, send SIGQUIT signal. HINT: CTRL-\
@@ -17,10 +18,10 @@ int main()
 	memset(&act, '\0', sizeof(act));
 	act.sa_handler = &radical_signal_handling;
 
-	for (;;) {
-		if (sigaction(SIGINT, &act, NULL) != 0) {
-			perror("Sigaction failure");
-			exit(EXIT_FAILURE);
-		}
+	if (sigaction(SIGINT, &act, NULL) != 0) {
+		perror("Sigaction failure");
+		exit(EXIT_FAILURE);
 	}
+
+	for (;;) { sleep(3); }
 }
