@@ -8,7 +8,7 @@
 void *radical_realloc(void *ptr, size_t orig_size, size_t size)
 {
 	if (ptr == NULL) {
-		ptr = malloc(size*sizeof(void));
+		ptr = malloc(size*sizeof(void*));
 		if (ptr == NULL) {
 			err(EXIT_FAILURE, "malloc in realloc");
 		}
@@ -16,6 +16,7 @@ void *radical_realloc(void *ptr, size_t orig_size, size_t size)
 	}
 	if (size == 0) {
 		free(ptr);
+		ptr = NULL;
 		return NULL;
 	}
 	if (size == orig_size) {
@@ -27,12 +28,12 @@ void *radical_realloc(void *ptr, size_t orig_size, size_t size)
 			err(EXIT_FAILURE, "malloc in realloc");
 		}
 		if (orig_size < size) {
-			puts("Flag A");
 			memcpy(new_ptr, ptr, orig_size);
 		} else {
 			memcpy(new_ptr, ptr, size);
 		}
 		free(ptr);
+		ptr = NULL;
 		return new_ptr;
 	}
 }
