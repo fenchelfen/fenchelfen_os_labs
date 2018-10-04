@@ -26,7 +26,7 @@ int main()
 		read(pipefd[0], pid_string, strlen(pid_string));;
 		brother = strtol(pid_string, NULL, 10);
 		kill(brother, SIGTERM);
-		puts("Child one:\tChild two runs no more. Now I will terminate.");
+		fprintf(stdout, "Child one:\tChild two runs no more. Now I will terminate.\n");
 		_exit(EXIT_SUCCESS); /* Closes all the fildes. Supposedly, streams are empty so no need to flush */
 	} else {
 		close(pipefd[0]);
@@ -35,7 +35,7 @@ int main()
 			err(EXIT_FAILURE, "Fork failure");
 		}
 		if (child_two == 0) {
-			for (;;) { printf("Child two:\tPlease, clean up! %d\n", getpid()); sleep(1); }
+			for (;;) { fprintf(stdout,"Child two:\tPlease, clean up! %d\n", getpid()); sleep(1); }
 			/* should be killed, be cautious */
 		} else {
 			char pid_string[16];	
@@ -44,7 +44,7 @@ int main()
 			waitpid(child_one, NULL, WUNTRACED);
 			close(pipefd[0]);
 			close(pipefd[1]);
-			puts("Parent:\t\tAll is freshly clean!");
+			fprintf(stdout, "Parent:\t\tAll is freshly clean!\n");
 			exit(EXIT_SUCCESS);
 		}
 	}
