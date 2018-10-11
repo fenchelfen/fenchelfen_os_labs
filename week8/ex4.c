@@ -10,16 +10,21 @@
 
 int main()
 {
+	void *ptrs[10];
 	for (int i = 0; i < 10; ++i) {
-		int *ptr = malloc(SIZE);	
-		if (ptr == NULL) {
+		ptrs[i] = malloc(SIZE);
+		if (ptrs[i] == NULL) {
 			err(EXIT_FAILURE, "malloc");
 		}
-		memset(ptr, '\0', SIZE);
+		memset(ptrs[i], '\0', SIZE);
 		struct rusage struct_usage;
-		printf("Mem Usage:\t%d\n", getrusage(RUSAGE_SELF, &struct_usage)); /* getrusage is unmaintained for mem */
+		getrusage(RUSAGE_SELF, &struct_usage);
+		printf("Mem Usage:\t%ld\n", struct_usage.ru_nswap); /* getrusage is unmaintained for ru_nswap (and many others) */
 		perror("");
 		sleep(1);
+	}
+	for (int i = 0; i < 10; ++i) {
+		free(ptrs[i]);
 	}
 	return 0;
 }
