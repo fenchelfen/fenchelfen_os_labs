@@ -1,0 +1,6 @@
+
+		What's the difference between a physical and a virtual address?
+
+		Virtual addresses are to be mapped by MMU onto physical addresses,
+		since virtual address is an abstraction of a physical one.
+
