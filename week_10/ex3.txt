@@ -1,0 +1,40 @@
+After applying "chmod -x _ex3.txt" stat shows
+
+  File: _ex3.txt
+  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+Device: 801h/2049d	Inode: 1573293     Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/fenchelfen)   Gid: ( 1000/fenchelfen)
+Access: 2018-10-24 12:38:59.158638240 +0300
+Modify: 2018-10-24 12:38:59.158638240 +0300
+Change: 2018-10-24 12:39:22.279036561 +0300
+ Birth: -
+
+After applying "chmod 747 _ex3.txt" stat shows
+
+  File: _ex3.txt
+  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+Device: 801h/2049d	Inode: 1573293     Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/fenchelfen)   Gid: ( 1000/fenchelfen)
+Access: 2018-10-24 12:38:59.158638240 +0300
+Modify: 2018-10-24 12:38:59.158638240 +0300
+Change: 2018-10-24 12:39:22.279036561 +0300
+ Birth: -
+
+What does 660 mean? --
+
+	File owner  : rw
+	File's group: rw
+	Others		: -
+
+What does 775 mean? --
+
+	File owner  : rwx
+	File's group: rwx
+	Others		: rx
+
+What does 777 mean? --
+
+	File owner  : rwx
+	File's group: rwx
+	Others		: rwx
+
