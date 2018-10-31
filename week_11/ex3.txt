@@ -1,0 +1,8 @@
+ex3_1.c
+
+	The forked child keeps the buffer of the parent, when they reach the second prinf both buffers are flushed writing 'Hello' into stdin. 
+
+ex3_2.c
+
+	Child inherits an empty buffer, so nothing is printed after the fork except the two new line characters.
+
