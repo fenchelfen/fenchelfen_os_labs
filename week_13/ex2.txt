@@ -1,0 +1,6 @@
+None of the recovery mechanisms are practical, you have to choose between rolling back to a checkpoint, preemption or killing (which is very crude).
+
+Deadlock prevention should be used when high efficiency is important because most prevention strategies do not score well at resource utilization: mutual exclusion, hold and wait, no preemption, etc.
+
+Deadlock avoidance is not a good choice at least because it is too complex to implement in practice: no way you can predict future requests.
+
