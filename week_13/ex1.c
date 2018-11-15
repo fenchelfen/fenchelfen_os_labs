@@ -1,46 +1,97 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <err.h>
+
+char** split(char *str, int *count);
 
 size_t n;
 size_t m;
 
-char** split(char* str, int* count);
+void free_arr(int **array, int m)
+{
+	for (int i = 0; i < m; ++i) {
+		free(array[i]);
+	}
+	free(array);
+}
+
+void read_nums(int** array, FILE *in)
+{
+	int buf_size = sizeof(char);
+	char *buf = malloc(buf_size);
+	char **numbers;
+	int c = EOF - 1;
+
+	int i = 0, k;
+	for (;;) {
+		buf_size = sizeof(char);
+		for (k = 0; (c = getc(in)) != '\n'; ++k) {
+			if (c == EOF) {
+				free(buf);
+				return;
+			}
+
+			buf = realloc(buf, ++buf_size);
+			buf[k] = c;
+		}
+
+		// If line is incomplete, return
+		if (buf_size < n) {
+			free(buf);
+			return;
+		}
+
+		int count = 0;
+		numbers  = split(buf, &count);
+		array    = realloc(array, ++m);
+		array[i] = realloc(array[i], count);
+
+		if (n < count) {
+			n = count;
+		}
+
+		for (int j = 0; j < count; ++j) {
+			array[i][j] = strtol(numbers[j], NULL, 10);
+		}
+		++i;
+	}
+}
 
 int main()
 {
-	// int alloc[n][m];
-	// int reqst[n][m];
+	n = 0;
+	m = 0;
+
+	int **alloc = malloc(sizeof(int**));
+	int **reqst = malloc(sizeof(int**));
+	
+	*alloc = malloc(sizeof(int*));
+	*reqst = malloc(sizeof(int*));
 
 	FILE *in = fopen("input_ok.txt", "r");
 
-	char *buf = malloc(32);
-	char **numbers;
-	int c;
-	while (c != EOF) {
-		int i;
-		int count = 0;
-		for (i = 0; (c = getc(in)) != '\n'; ++i) {
-			if (c == EOF)
-				break;
-
-			buf[i] = c;
+	read_nums(alloc, in);
+	read_nums(reqst, in);
+	
+	for (int i = 0; i < m; ++i) {
+		for (int j = 0; j < n; ++j) {
+			printf("%d ", alloc[i][j]);
 		}
-		numbers = split(buf, &count);
-		printf("Count %d \n", count);
-		for (int j = 0; j < count; ++j) {
-			puts(numbers[j]);
-		}
+		putchar('\n');
 	}
 
-	// for (int i = 0; i < n; ++i) {
-	// 	for (int j = 0; j < m; --j) {
-	// 		printf("%d", alloc[i][j]);
+	putchar('\n');
+	// for (int i = 0; i < m; ++i) {
+	// 	for (int j = 0; j < n; ++j) {
+	// 		printf("%d ", reqst[i][j]);
 	// 	}
+	// 	putchar('\n');
 	// }
 
+	free_arr(alloc, m);
+	free_arr(reqst, m);
 	fclose(in);
-	free(buf);
 	return 0;
 }       
         
@@ -64,5 +115,5 @@ char** split(char* str, int* count) {
 	*count = spaces;
     return splits;
 }
-/* split_string source is taken from
+/* split is taken from
    https://www.hackerrank.com/challenges/sock-merchant/problem */
